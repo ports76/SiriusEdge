@@ -1,26 +1,20 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SiriusEdge</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>SiriusEdge</h1>
   <div id="mainMenu" class="grid"></div>
   <div id="moduleContent" class="hidden">
-    <button onclick="goBack()">← Back</button>
+    <button onclick="goBack()">&larr; Back</button>
     <h2 id="moduleTitle"></h2>
-    <div id="questionContainer"></div>
-    <div id="reflectionContainer" class="hidden">
-      <h3>Reflection</h3>
-      <textarea id="reflectionText" rows="5" cols="40" placeholder="Write your reflection here..."></textarea>
-    </div>
-    <div id="scoreContainer" class="hidden"></div>
-    <button id="submitQuiz" class="hidden" onclick="submitAnswers()">Submit</button>
-    <button id="viewScores" class="hidden" onclick="viewScores()">View Score</button>
-    <button id="retakeQuiz" class="hidden" onclick="retakeQuiz()">Retake Quiz</button>
+    <div id="lessonContent"></div>
+    <div id="quizContent"></div>
   </div>
   <script src="script.js"></script>
 </body>
