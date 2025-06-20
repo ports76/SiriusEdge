@@ -4,15 +4,19 @@ body {
   margin: 0;
   padding: 1rem;
 }
+
 h1 {
   text-align: center;
 }
+
 .grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-top: 2rem;
 }
+
 .tile {
   background: white;
   border-radius: 10px;
@@ -23,24 +27,44 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
+
+.tile:hover {
+  transform: scale(1.05);
+}
+
 .hidden {
   display: none;
 }
+
 #moduleContent {
   padding: 2rem;
   background: white;
   border-radius: 8px;
   margin-top: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
-textarea {
-  width: 100%;
-  padding: 1rem;
+
+#quizContainer {
+  margin-top: 2rem;
 }
+
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 1rem;
+  background-color: #005b96;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+button:hover {
+  background-color: #003f6b;
 }
