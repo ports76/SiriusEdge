@@ -1,157 +1,127 @@
 const categories = {
-  "Corporate Hero": ["Supportiveness"]
+  "Corporate Hero": ["Supportiveness", "Initiative", "Compliance"],
+  "CMI Courses": ["CMI Full List"],
+  "Nonverbal Communications": ["Microexpressions", "Body Language"],
+  "Influence & Negotiation": ["Authority", "Liking", "Scarcity", "Reciprocity", "Social Proof", "Commitment"]
 };
 
-const questions = {
+const lessons = {
+  "Supportiveness": "Supportive leaders actively listen, encourage their teams, and promote psychological safety. They build a trusting environment by showing empathy, giving recognition, and being available.",
+  "Initiative": "Initiative is the ability to assess and initiate things independently. Leaders who take initiative drive change and anticipate future needs before they arise.",
+  "Compliance": "Compliance is about ensuring standards are followed. It includes regulatory awareness, ethical behavior, and reinforcing accountability within teams.",
+  "Microexpressions": "Microexpressions are brief, involuntary facial expressions that reveal true emotions. Learning to recognize them improves emotional intelligence and communication.",
+  "Body Language": "Body language conveys messages nonverbally through posture, gestures, and facial expressions. Mastery improves presence, persuasion, and trust.",
+  "CMI Full List": `<ul>
+    <li>CMI Level 3 Award in Principles of Management and Leadership</li>
+    <li>CMI Level 3 Certificate in Principles of Management and Leadership</li>
+    <li>CMI Level 3 Diploma in Principles of Management and Leadership</li>
+    <li>CMI Level 5 Award in Management and Leadership</li>
+    <li>CMI Level 5 Certificate in Management and Leadership</li>
+    <li>CMI Level 5 Diploma in Management and Leadership</li>
+    <li>CMI Level 5 Certificate in Police Management</li>
+  </ul>`
+};
+
+const quizData = {
   "Supportiveness": [
     {
-      question: "What is active listening?",
-      options: ["Interrupting the speaker", "Fully focusing on the speaker", "Multitasking while listening"],
-      answer: "Fully focusing on the speaker"
+      question: "What is a key trait of a supportive leader?",
+      options: ["Micromanaging", "Avoiding conflict", "Active listening"],
+      answer: "Active listening"
     },
     {
-      question: "How can leaders show support?",
-      options: ["Criticize often", "Provide constructive feedback", "Avoid communication"],
-      answer: "Provide constructive feedback"
-    },
-    {
-      question: "Supportiveness in a team encourages:",
-      options: ["Isolation", "Collaboration", "Competition"],
-      answer: "Collaboration"
-    },
-    {
-      question: "Which behavior best reflects supportiveness?",
-      options: ["Ignoring concerns", "Listening and offering help", "Delegating everything"],
-      answer: "Listening and offering help"
-    },
-    {
-      question: "What phrase shows supportive leadership?",
-      options: ["Figure it out yourself", "Let’s solve this together", "That’s not my problem"],
-      answer: "Let’s solve this together"
-    },
-    {
-      question: "Being supportive improves:",
-      options: ["Conflict", "Trust", "Miscommunication"],
+      question: "Supportiveness builds what within a team?",
+      options: ["Fear", "Compliance", "Trust"],
       answer: "Trust"
-    },
-    {
-      question: "What skill enhances supportiveness?",
-      options: ["Blaming", "Judging", "Empathy"],
-      answer: "Empathy"
-    },
-    {
-      question: "What’s a good example of supporting a peer?",
-      options: ["Correcting them publicly", "Offering to help them improve", "Telling them to quit"],
-      answer: "Offering to help them improve"
-    },
-    {
-      question: "Which leadership style is most supportive?",
-      options: ["Autocratic", "Transformational", "Laissez-faire"],
-      answer: "Transformational"
-    },
-    {
-      question: "Supportiveness in leadership leads to:",
-      options: ["Burnout", "Retention", "Turnover"],
-      answer: "Retention"
     }
+    // Add 8 more...
   ]
 };
 
-const mainMenu = document.getElementById("mainMenu");
-const moduleContent = document.getElementById("moduleContent");
-const moduleTitle = document.getElementById("moduleTitle");
-const questionContainer = document.getElementById("questionContainer");
-const scoreContainer = document.getElementById("scoreContainer");
-const reflectionContainer = document.getElementById("reflectionContainer");
-const submitQuiz = document.getElementById("submitQuiz");
-const viewScoresBtn = document.getElementById("viewScores");
-const retakeQuizBtn = document.getElementById("retakeQuiz");
+let currentCategory = "";
+let currentSubcategory = "";
 
-Object.keys(categories).forEach(cat => {
-  const tile = document.createElement("div");
-  tile.className = "tile";
-  tile.textContent = cat;
-  tile.onclick = () => openCategory(cat);
-  mainMenu.appendChild(tile);
-});
+function loadMainMenu() {
+  const main = document.getElementById("mainMenu");
+  main.innerHTML = "";
+  Object.keys(categories).forEach(category => {
+    const tile = document.createElement("div");
+    tile.className = "tile";
+    tile.textContent = category;
+    tile.onclick = () => openCategory(category);
+    main.appendChild(tile);
+  });
+}
 
 function openCategory(category) {
-  mainMenu.classList.add("hidden");
-  moduleContent.classList.remove("hidden");
-  moduleTitle.textContent = category;
-  const subModules = categories[category];
-  questionContainer.innerHTML = '';
-  subModules.forEach(sub => {
+  currentCategory = category;
+  currentSubcategory = "";
+  document.getElementById("mainMenu").classList.add("hidden");
+  document.getElementById("moduleContent").classList.remove("hidden");
+  document.getElementById("subMenu").innerHTML = "";
+  document.getElementById("lessonContent").innerHTML = "";
+  document.getElementById("quizContainer").classList.add("hidden");
+
+  document.getElementById("contentHeader").textContent = category;
+
+  categories[category].forEach(sub => {
     const tile = document.createElement("div");
     tile.className = "tile";
     tile.textContent = sub;
-    tile.onclick = () => loadLesson(sub);
-    questionContainer.appendChild(tile);
+    tile.onclick = () => loadSubcategory(sub);
+    document.getElementById("subMenu").appendChild(tile);
   });
-  hideExtras();
 }
 
-function loadLesson(subcategory) {
-  moduleTitle.textContent = subcategory;
-  questionContainer.innerHTML = '';
-  const qs = questions[subcategory];
-  if (!qs) {
-    questionContainer.innerHTML = "Lesson content coming soon.";
-    return;
+function loadSubcategory(sub) {
+  currentSubcategory = sub;
+  document.getElementById("subMenu").innerHTML = "";
+  document.getElementById("lessonContent").innerHTML = `<h3>${sub}</h3><p>${lessons[sub] || "Lesson coming soon..."}</p>`;
+
+  if (quizData[sub]) {
+    showQuiz(sub);
+  } else {
+    document.getElementById("quizContainer").classList.add("hidden");
   }
-  qs.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <p><strong>Q${index + 1}:</strong> ${q.question}</p>
-      ${q.options.map(opt =>
-        `<label><input type="radio" name="q${index}" value="${opt}"/> ${opt}</label><br/>`).join('')}
-    `;
-    questionContainer.appendChild(div);
-  });
-  reflectionContainer.classList.remove("hidden");
-  submitQuiz.classList.remove("hidden");
-  viewScoresBtn.classList.add("hidden");
-  retakeQuizBtn.classList.add("hidden");
-  scoreContainer.innerHTML = '';
 }
 
-function submitAnswers() {
-  const subcategory = moduleTitle.textContent;
-  const qs = questions[subcategory];
+function showQuiz(sub) {
+  const quizEl = document.getElementById("quizContainer");
+  quizEl.classList.remove("hidden");
+  quizEl.innerHTML = "";
+
   let score = 0;
-  qs.forEach((q, index) => {
-    const selected = document.querySelector(`input[name="q${index}"]:checked`);
-    if (selected && selected.value === q.answer) {
-      score++;
+  let currentQ = 0;
+
+  const showQuestion = () => {
+    if (currentQ >= quizData[sub].length) {
+      quizEl.innerHTML = `<p>Your score: ${score} / ${quizData[sub].length}</p><textarea placeholder="Reflect on your learning..."></textarea>`;
+      return;
     }
-  });
-  scoreContainer.innerHTML = `<p>Your score: ${score} out of ${qs.length}</p>`;
-  scoreContainer.classList.remove("hidden");
-  submitQuiz.classList.add("hidden");
-  viewScoresBtn.classList.remove("hidden");
-  retakeQuizBtn.classList.remove("hidden");
-}
 
-function viewScores() {
-  alert(scoreContainer.textContent + "\nReflection: " + document.getElementById("reflectionText").value);
-}
+    const q = quizData[sub][currentQ];
+    quizEl.innerHTML = `
+      <p><strong>Q${currentQ + 1}:</strong> ${q.question}</p>
+      ${q.options.map(opt => `<button onclick="submitAnswer('${opt}', '${q.answer}')">${opt}</button>`).join("<br>")}
+    `;
+  };
 
-function retakeQuiz() {
-  loadLesson(moduleTitle.textContent);
-  document.getElementById("reflectionText").value = '';
+  window.submitAnswer = (selected, correct) => {
+    if (selected === correct) score++;
+    currentQ++;
+    showQuestion();
+  };
+
+  showQuestion();
 }
 
 function goBack() {
-  moduleContent.classList.add("hidden");
-  mainMenu.classList.remove("hidden");
-  hideExtras();
+  if (currentSubcategory) {
+    openCategory(currentCategory);
+  } else {
+    document.getElementById("mainMenu").classList.remove("hidden");
+    document.getElementById("moduleContent").classList.add("hidden");
+  }
 }
 
-function hideExtras() {
-  questionContainer.innerHTML = '';
-  reflectionContainer.classList.add("hidden");
-  submitQuiz.classList.add("hidden");
-  viewScoresBtn.classList.add("hidden");
-  retakeQuizBtn.classList.add("hidden");
-  scoreContainer.classList.add("hidden");
-}
+window.onload = loadMainMenu;
