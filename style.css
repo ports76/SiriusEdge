@@ -18,17 +18,13 @@ h1 {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   padding: 1rem;
-  width: 150px;
+  width: 180px;
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.2s;
-}
-.tile:hover {
-  transform: scale(1.05);
 }
 .hidden {
   display: none;
@@ -39,6 +35,12 @@ h1 {
   border-radius: 8px;
   margin-top: 1rem;
 }
+textarea {
+  width: 100%;
+  padding: 1rem;
+}
 button {
-  margin-top: 10px;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
