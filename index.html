@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SiriusEdge</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>SiriusEdge</h1>
   <div id="mainMenu" class="grid"></div>
   <div id="moduleContent" class="hidden">
-    <button onclick="goBack()">← Back</button>
-    <div id="subMenu" class="grid"></div>
+    <button onclick="goBack()" class="backBtn">← Back</button>
+    <h2 id="moduleTitle"></h2>
+    <div id="lessonContent"></div>
+    <div id="questionnaire"></div>
+    <div id="reflection" class="hidden">
+      <h3>Reflection</h3>
+      <textarea placeholder="Write your thoughts here..."></textarea>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
