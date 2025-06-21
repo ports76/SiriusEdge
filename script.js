@@ -1,21 +1,22 @@
+
 const modules = {
   "the_corporate_hero": {
-    "lesson": "This module explores the traits and mindset of high-performing corporate leaders—those who exemplify resilience, initiative, and service under pressure. The Corporate Hero framework draws inspiration from military gallantry and applies those values to organizational leadership.",
+    "lesson": "This module explores the traits and mindset of high-performing corporate leaders\u2014those who exemplify resilience, initiative, and service under pressure. The Corporate Hero framework draws inspiration from military gallantry and applies those values to organizational leadership.",
     "questions": [
       "I remain composed when facing workplace challenges.",
-      "I act in the interest of my team even when it’s inconvenient.",
+      "I act in the interest of my team even when it\u2019s inconvenient.",
       "I believe in a higher purpose behind my work.",
       "I push forward when others hesitate.",
       "I encourage others to step up during crises.",
       "I perform consistently under pressure.",
       "I hold myself to high ethical standards.",
       "I reflect on decisions to learn and grow.",
-      "I’m trusted in high-stakes situations.",
+      "I\u2019m trusted in high-stakes situations.",
       "I mentor others to grow professionally."
     ]
   },
   "cultural_intelligence": {
-    "lesson": "This module enhances your ability to lead in multicultural environments. You’ll learn how to adapt your communication and leadership style to different cultural norms, increasing your effectiveness across global and diverse teams.",
+    "lesson": "This module enhances your ability to lead in multicultural environments. You\u2019ll learn how to adapt your communication and leadership style to different cultural norms, increasing your effectiveness across global and diverse teams.",
     "questions": [
       "I adapt my communication to suit different cultural contexts.",
       "I am aware of my own cultural biases.",
@@ -29,8 +30,8 @@ const modules = {
       "I consider cultural diversity a leadership asset."
     ]
   },
-  "non_verbal_communication": {
-    "lesson": "This module teaches you to understand and master body language, facial micro-expressions, and other non-verbal cues that influence professional interactions. You’ll become more persuasive, aware, and confident in face-to-face communication.",
+  "non-verbal_communication": {
+    "lesson": "This module teaches you to understand and master body language, facial micro-expressions, and other non-verbal cues that influence professional interactions. You\u2019ll become more persuasive, aware, and confident in face-to-face communication.",
     "questions": [
       "I can read people's emotions from their facial expressions.",
       "I am conscious of my posture during meetings.",
@@ -42,8 +43,10 @@ const modules = {
       "I can spot micro-expressions under stress.",
       "I manage my own expressions intentionally.",
       "I train others in body language awareness."
+    ]
+  },
   "influence": {
-    "lesson": "Explore the psychology behind influence using Cialdini’s principles and NLP techniques. This module empowers you to ethically persuade, negotiate, and lead with authority and trust.",
+    "lesson": "Explore the psychology behind influence using Cialdini\u2019s principles and NLP techniques. This module empowers you to ethically persuade, negotiate, and lead with authority and trust.",
     "questions": [
       "I persuade others without being forceful.",
       "I build rapport quickly.",
@@ -88,7 +91,7 @@ const modules = {
     ]
   },
   "resilience": {
-    "lesson": "This module helps you strengthen your mental and emotional resilience. You’ll learn cognitive techniques, stress-management tools, and practical ways to bounce back from adversity.",
+    "lesson": "This module helps you strengthen your mental and emotional resilience. You\u2019ll learn cognitive techniques, stress-management tools, and practical ways to bounce back from adversity.",
     "questions": [
       "I recover quickly from setbacks.",
       "I stay calm under stress.",
@@ -134,7 +137,46 @@ const modules = {
   }
 };
 
-// PDF download using html2pdf.js (assumes library added externally)
+function navigate(moduleId) {
+    const module = modules[moduleId];
+    if (!module) {
+        alert("Module not found.");
+        return;
+    }
+
+    // Clear existing content
+    document.body.innerHTML = "";
+
+    // Create new layout
+    const header = document.createElement("header");
+    header.innerHTML = `<h1>{moduleId.replace("_", " ").toUpperCase()}</h1>`;
+    document.body.appendChild(header);
+
+    const lesson = document.createElement("section");
+    lesson.className = "lesson";
+    lesson.innerHTML = `<h2>Lesson</h2><p>{module.lesson}</p>`;
+    document.body.appendChild(lesson);
+
+    const quiz = document.createElement("section");
+    quiz.className = "quiz";
+    quiz.innerHTML = "<h2>Assessment</h2>";
+
+    module.questions.forEach((question, index) => {
+        const qDiv = document.createElement("div");
+        qDiv.className = "question";
+        let qHtml = `<p><strong>Q{index + 1}:</strong> {question}</p><div class='scale'>`;
+        for (let i = 1; i <= 7; i++) {
+            qHtml += `<label><input type='radio' name='q{index}' value='{i}'> {i}</label>`;
+        }
+        qHtml += "</div>";
+        qDiv.innerHTML = qHtml;
+        quiz.appendChild(qDiv);
+    });
+
+    document.body.appendChild(quiz);
+}
+
+// PDF download using html2pdf.js (assumes integration later)
 function downloadPDF(moduleId) {
     const element = document.body;
     const opt = {
@@ -147,7 +189,7 @@ function downloadPDF(moduleId) {
     html2pdf().from(element).set(opt).save();
 }
 
-// HeroBot placeholder
+// HeroBot (placeholder)
 function addHeroBot() {
     const chat = document.createElement("div");
     chat.className = "herobot";
@@ -159,7 +201,7 @@ function addHeroBot() {
     document.body.appendChild(chat);
 }
 
-// Navigate to module view
+// Call HeroBot and add PDF button on module load
 function navigate(moduleId) {
     const module = modules[moduleId];
     if (!module) {
@@ -175,7 +217,7 @@ function navigate(moduleId) {
 
     const lesson = document.createElement("section");
     lesson.className = "lesson";
-    lesson.innerHTML = `<h2>Lesson</h2><p>${module.lesson}</p><button onclick="downloadPDF('${moduleId}')">📄 Download Lesson PDF</button>`;
+    lesson.innerHTML = `<h2>Lesson</h2><p>${module.lesson}</p><button onclick="downloadPDF('${moduleId}')">ð Download Lesson PDF</button>`;
     document.body.appendChild(lesson);
 
     const quiz = document.createElement("section");
@@ -197,5 +239,3 @@ function navigate(moduleId) {
     document.body.appendChild(quiz);
     addHeroBot();
 }
-    ]
-  },
