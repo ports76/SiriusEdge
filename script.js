@@ -1,109 +1,46 @@
-const categories = {
-  "Corporate Hero": ["Supportiveness", "Initiative", "Compliance"],
-  "Nonverbal Communication": ["Microexpressions", "Body Language"],
-  "Influence & Negotiation": ["Authority", "Liking", "Scarcity", "Reciprocity", "Social Proof", "Commitment"],
-  "CMI Courses": ["Level 3 Coaching", "Level 5 Leadership", "Team Management", "Strategic Decision-Making"]
-};
-
-const lessons = {
-  "Supportiveness": "Supportive leaders create trust, psychological safety, and team loyalty...",
-  "Initiative": "Taking initiative is about being proactive, anticipating needs, and solving problems...",
-  "Compliance": "Compliance in leadership involves policy adherence and ethical integrity...",
-  "Microexpressions": "Microexpressions are brief, involuntary facial expressions revealing true emotions...",
-  "Body Language": "Effective leaders master posture, gestures, and facial cues...",
-  "Authority": "Use expertise and confident communication to gain influence...",
-  "Liking": "Be likable by being relatable, warm, and trustworthy...",
-  "Scarcity": "Highlight urgency and limited availability to increase perceived value...",
-  "Reciprocity": "Offer value first to trigger the natural response to return the favor...",
-  "Social Proof": "Use endorsements and examples to build trust and herd behavior...",
-  "Commitment": "Ask for small commitments that grow into loyalty over time...",
-  "Level 3 Coaching": "Focuses on core coaching competencies...",
-  "Level 5 Leadership": "Designed for senior leaders managing strategic priorities...",
-  "Team Management": "Teaches conflict resolution, delegation, and communication...",
-  "Strategic Decision-Making": "Emphasizes risk analysis and long-term planning..."
-};
-
-const questions = {
-  "Supportiveness": [
-    { q: "What is active listening?", options: ["Interrupting", "Nodding without paying attention", "Focusing fully on the speaker"], a: 2 },
-    { q: "Supportive leaders often...", options: ["Avoid tough talks", "Provide timely feedback", "Ignore underperformance"], a: 1 },
-    { q: "How do you show empathy?", options: ["Dismiss feelings", "Listen and validate", "Change subject"], a: 1 },
-    { q: "When supporting a team, use...", options: ["Fear tactics", "Open communication", "Isolation"], a: 1 },
-    { q: "Trust builds through...", options: ["Consistency", "Unpredictability", "Sarcasm"], a: 0 },
-    { q: "What breaks psychological safety?", options: ["Active inclusion", "Mocking mistakes", "Listening"], a: 1 },
-    { q: "To show support visually...", options: ["Cross arms", "Smile & nod", "Roll eyes"], a: 1 },
-    { q: "Which is supportive?", options: ["Saying 'I told you so'", "Helping brainstorm", "Blaming others"], a: 1 },
-    { q: "Support builds...", options: ["Resentment", "Morale", "Division"], a: 1 },
-    { q: "Effective support includes...", options: ["Avoiding responsibility", "Timely recognition", "Micromanagement"], a: 1 }
-  ]
-};
-
-const mainMenu = document.getElementById("mainMenu");
-const moduleContent = document.getElementById("moduleContent");
-const moduleTitle = document.getElementById("moduleTitle");
-const lessonContent = document.getElementById("lessonContent");
-const questionnaire = document.getElementById("questionnaire");
-const reflection = document.getElementById("reflection");
-
-Object.keys(categories).forEach(cat => {
-  const tile = document.createElement("div");
-  tile.className = "tile";
-  tile.textContent = cat;
-  tile.onclick = () => openCategory(cat);
-  mainMenu.appendChild(tile);
-});
-
-let currentCategory = "";
-function openCategory(category) {
-  currentCategory = category;
-  mainMenu.classList.add("hidden");
-  moduleContent.classList.remove("hidden");
-  moduleTitle.textContent = category;
-  lessonContent.innerHTML = "";
-  questionnaire.innerHTML = "";
-  categories[category].forEach(sub => {
-    const tile = document.createElement("div");
-    tile.className = "tile";
-    tile.textContent = sub;
-    tile.onclick = () => loadSubcategory(sub);
-    lessonContent.appendChild(tile);
-  });
-}
-
-function loadSubcategory(sub) {
-  lessonContent.innerHTML = `<p>${lessons[sub] || "Lesson coming soon."}</p>`;
-  const qSet = questions[sub];
-  questionnaire.innerHTML = "";
-  if (qSet) {
-    qSet.forEach((item, i) => {
-      const block = document.createElement("div");
-      block.innerHTML = `<p><b>Q${i + 1}:</b> ${item.q}</p>` + item.options.map((opt, j) =>
-        `<label><input type='radio' name='q${i}' value='${j}'/> ${opt}</label><br/>`
-      ).join("");
-      questionnaire.appendChild(block);
-    });
-    const submitBtn = document.createElement("button");
-    submitBtn.textContent = "Submit Answers";
-    submitBtn.onclick = () => gradeQuiz(sub);
-    questionnaire.appendChild(submitBtn);
-    reflection.classList.remove("hidden");
-  } else {
-    questionnaire.innerHTML = "<p>No quiz for this subcategory yet.</p>";
-    reflection.classList.add("hidden");
-  }
-}
-
-function gradeQuiz(sub) {
-  const qSet = questions[sub];
-  let score = 0;
-  qSet.forEach((item, i) => {
-    const selected = document.querySelector(`input[name="q${i}"]:checked`);
-    if (selected && parseInt(selected.value) === item.a) score++;
-  });
-  alert(`You scored ${score} out of ${qSet.length}`);
-}
-
-function goBack() {
-  moduleContent.classList.add("hidden");
-  mainMenu.classList.remove("hidden");
-}
+const modules = {
+  "the_corporate_hero": {
+    "lesson": "This module explores the traits and mindset of high-performing corporate leaders—those who exemplify resilience, initiative, and service under pressure. The Corporate Hero framework draws inspiration from military gallantry and applies those values to organizational leadership.",
+    "questions": [
+      "I remain composed when facing workplace challenges.",
+      "I act in the interest of my team even when it’s inconvenient.",
+      "I believe in a higher purpose behind my work.",
+      "I push forward when others hesitate.",
+      "I encourage others to step up during crises.",
+      "I perform consistently under pressure.",
+      "I hold myself to high ethical standards.",
+      "I reflect on decisions to learn and grow.",
+      "I’m trusted in high-stakes situations.",
+      "I mentor others to grow professionally."
+    ]
+  },
+  "cultural_intelligence": {
+    "lesson": "This module enhances your ability to lead in multicultural environments. You’ll learn how to adapt your communication and leadership style to different cultural norms, increasing your effectiveness across global and diverse teams.",
+    "questions": [
+      "I adapt my communication to suit different cultural contexts.",
+      "I am aware of my own cultural biases.",
+      "I research cultural norms before entering new environments.",
+      "I can manage teams with different cultural expectations.",
+      "I listen actively in cross-cultural conversations.",
+      "I enjoy learning about other traditions and values.",
+      "I avoid stereotyping in professional settings.",
+      "I tailor my leadership to local sensitivities.",
+      "I help resolve misunderstandings in multicultural groups.",
+      "I consider cultural diversity a leadership asset."
+    ]
+  },
+  "non_verbal_communication": {
+    "lesson": "This module teaches you to understand and master body language, facial micro-expressions, and other non-verbal cues that influence professional interactions. You’ll become more persuasive, aware, and confident in face-to-face communication.",
+    "questions": [
+      "I can read people's emotions from their facial expressions.",
+      "I am conscious of my posture during meetings.",
+      "I notice when body language contradicts spoken words.",
+      "I adjust my tone and gestures to suit the situation.",
+      "I make eye contact confidently.",
+      "I detect discomfort in others even when unspoken.",
+      "I use non-verbal signals to emphasize key points.",
+      "I can spot micro-expressions under stress.",
+      "I manage my own expressions intentionally.",
+      "I train others in body language awareness."
+    ]
+  },
