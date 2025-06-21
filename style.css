@@ -1,65 +1,87 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #edf2f7, #e2e8f0);
-  margin: 0;
-  padding: 1rem;
-  color: #2d3748;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f6f3ee;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }
-h1 {
-  text-align: center;
-  color: #2b6cb0;
+
+header {
+    background-color: #123a5f;
+    color: white;
+    padding: 20px 0;
 }
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+
+footer {
+    background-color: #123a5f;
+    color: white;
+    padding: 15px;
+    font-size: 0.9em;
 }
-.tile {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1rem;
-  width: 180px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-align: center;
-  transition: transform 0.2s ease;
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 30px;
 }
-.tile:hover {
-  transform: scale(1.05);
-  background-color: #ebf8ff;
+
+.grid-item {
+    background-color: #2f7d67;
+    color: white;
+    padding: 40px 20px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
-.hidden {
-  display: none;
+
+.grid-item:hover {
+    background-color: #1d5c49;
 }
-#moduleContent {
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  margin-top: 1rem;
+
+.lesson, .quiz {
+    text-align: left;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
 }
-.backBtn {
-  background-color: #4299e1;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  cursor: pointer;
+
+.question {
+    margin: 15px 0;
 }
-.backBtn:hover {
-  background-color: #2b6cb0;
+
+.scale label {
+    margin-right: 10px;
 }
-textarea {
-  width: 100%;
-  height: 120px;
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #cbd5e0;
-  resize: none;
+
+.herobot {
+    background-color: #f0f8ff;
+    border-top: 2px solid #0c4a6e;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.herobot textarea {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.herobot button {
+    background-color: #0c4a6e;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.herobot button:hover {
+    background-color: #062f49;
 }
