@@ -1,4 +1,6 @@
 
+document.addEventListener("DOMContentLoaded", function () {
+
 const modules = {
   "the_corporate_hero": {
     "lesson": "This module explores the traits and mindset of high-performing corporate leaders\u2014those who exemplify resilience, initiative, and service under pressure. The Corporate Hero framework draws inspiration from military gallantry and applies those values to organizational leadership.",
@@ -239,3 +241,6 @@ function navigate(moduleId) {
     document.body.appendChild(quiz);
     addHeroBot();
 }
+
+});
+
