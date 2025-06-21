@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SiriusEdge</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>SiriusEdge App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>SiriusEdge</h1>
-  <div id="mainMenu" class="grid"></div>
-  <div id="moduleContent" class="hidden">
-    <button onclick="goBack()" class="backBtn">← Back</button>
-    <h2 id="moduleTitle"></h2>
-    <div id="lessonContent"></div>
-    <div id="questionnaire"></div>
-    <div id="reflection" class="hidden">
-      <h3>Reflection</h3>
-      <textarea placeholder="Write your thoughts here..."></textarea>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <header>
+        <h1>SIRIUS SOLUTIONS APP</h1>
+    </header>
+    <main class="grid-container">
+        <div class="grid-item" onclick="navigate('the_corporate_hero')">The Corporate Hero</div>
+        <div class="grid-item" onclick="navigate('cultural_intelligence')">Cultural Intelligence</div>
+        <div class="grid-item" onclick="navigate('non_verbal_communication')">Non-Verbal Communication</div>
+        <div class="grid-item" onclick="navigate('influence')">Influence</div>
+        <div class="grid-item" onclick="navigate('cmi')">CMI</div>
+        <div class="grid-item" onclick="navigate('coaching')">Coaching</div>
+        <div class="grid-item" onclick="navigate('resilience')">Resilience</div>
+        <div class="grid-item" onclick="navigate('supportiveness')">Supportiveness</div>
+        <div class="grid-item" onclick="navigate('compliance')">Compliance</div>
+    </main>
+    <footer>
+        <p>• AI Integration • Offline Access • Gamification • Analytics</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
